@@ -8,7 +8,27 @@ import './App.css'
 function App() {
   const { imgURL, imgData } = useFirebaseDB(db, storage)
 
+  const makeSelection = (name, axisX, axisY, targetBox, dropdown) => {
+    const character = imgData.find((el) => el.name === name)
+
+    if (
+      axisX >= character.coordinates[0] &&
+      axisX <= character.coordinates[1] &&
+      axisY >= character.coordinates[2] &&
+      axisY <= character.coordinates[3]
+    ) {
+      targetBox.style.border = '4px solid #1ed15e'
+      document.body.removeChild(dropdown)
+    } else {
+      document.body.removeChild(targetBox)
+      document.body.removeChild(dropdown)
+    }
+  }
+
   const clickCharacter = (e) => {
+    const axisX = e.clientX
+    const axisY = e.clientY
+
     const targetBox = document.createElement('div')
     targetBox.style.position = 'absolute'
     targetBox.style.left = e.pageX - 20 + 'px'
@@ -16,29 +36,26 @@ function App() {
     targetBox.style.height = '45px'
     targetBox.style.width = '45px'
     targetBox.style.border = '4px dashed #000'
-
     document.body.append(targetBox)
-    const axisX = e.clientX
-    const axisY = e.clientY
-    console.log(axisX, axisY)
 
-    // console.log(
-    //   imgData[0]['coordinates'][0],
-    //   imgData[0]['coordinates'][1],
-    //   imgData[0]['coordinates'][2],
-    //   imgData[0]['coordinates'][3]
-    // )
+    const dropdown = document.createElement('div')
+    dropdown.className = 'dropdown__menu'
+    dropdown.style.left = e.pageX + 40 + 'px'
+    dropdown.style.top = e.pageY - 20 + 'px'
+    document.body.append(dropdown)
 
-    if (
-      axisX >= imgData[0]['coordinates'][0] &&
-      axisX <= imgData[0]['coordinates'][1] &&
-      axisY >= imgData[0]['coordinates'][2] &&
-      axisY <= imgData[0]['coordinates'][3]
-    ) {
-      targetBox.style.border = '4px solid #1ed15e'
-    } else {
-      console.log('no')
-    }
+    imgData.map(
+      (doc) =>
+        (dropdown.innerHTML += `<div class='dropdown__menuOption'>${doc.name}</div>`)
+    )
+
+    document
+      .querySelectorAll('.dropdown__menuOption')
+      .forEach((option) =>
+        option.addEventListener('click', () =>
+          makeSelection(option.innerText, axisX, axisY, targetBox, dropdown)
+        )
+      )
   }
 
   return (
@@ -55,9 +72,6 @@ function App() {
           />
         </div>
       )}
-      {/* <map name='waldo-map'>
-        <area shape='rect' coords='660, 270, 630 , 240' alt='waldo' href='#' />
-      </map> */}
     </div>
   )
 }

@@ -7,3 +7,27 @@
 .waldo__img {
   width: 100%;
 }
+
+.dropdown__menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 160px;
+  width: 90px;
+  background-color: #ffffff;
+  border: 5px solid #000;
+}
+
+.dropdown__menuOption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 90px;
+  cursor: pointer;
+}
+
+.dropdown__menuOption:hover {
+  background-color: #e0e0e0;
+}

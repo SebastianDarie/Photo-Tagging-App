@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.target__boxFound {
+  border: 4px solid #1ed15e !important;
+}
+
 .dropdown__menu {
   position: absolute;
   display: flex;

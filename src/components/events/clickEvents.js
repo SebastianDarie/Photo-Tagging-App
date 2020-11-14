@@ -1,4 +1,11 @@
-const clickCharacter = (e, imgData, charInput, setCharInput) => {
+const clickCharacter = (
+  e,
+  imgData,
+  charInput,
+  setCharInput,
+  alert,
+  setGameOver
+) => {
   if (charInput === true) {
     setCharInput(false)
   } else {
@@ -38,7 +45,9 @@ const clickCharacter = (e, imgData, charInput, setCharInput) => {
             targetBox,
             dropdown,
             imgData,
-            setCharInput
+            setCharInput,
+            alert,
+            setGameOver
           )
         )
       )
@@ -54,7 +63,9 @@ const makeSelection = (
   targetBox,
   dropdown,
   imgData,
-  setCharInput
+  setCharInput,
+  alert,
+  setGameOver
 ) => {
   const character = imgData.find((el) => el.name === name)
 
@@ -70,11 +81,19 @@ const makeSelection = (
   ) {
     targetBox.className = 'target__boxFound'
     document.body.removeChild(dropdown)
+
+    character.found = true
     setCharInput(false)
+
+    imgData.every((doc) => doc.found === true)
+      ? setGameOver(true)
+      : alert.success('good job')
   } else {
     document.body.removeChild(targetBox)
     document.body.removeChild(dropdown)
     setCharInput(false)
+
+    alert.error('wrong! try again')
   }
 }
 

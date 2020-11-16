@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Modal.css'
 
-const Modal = () => {
+const Modal = ({ db, startTime, endTime }) => {
+  const [inputText, setInputText] = useState('')
+
+  const submitHandler = async (e) => {
+    e.preventDefault()
+    try {
+      await db.collection('leaderboard').add({
+        name: inputText,
+        time: Math.floor((endTime - startTime) / 1000),
+        id: Math.floor(Math.random() * 100000),
+      })
+
+      window.location.reload()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const inputHandler = (e) => {
+    setInputText(e.target.value)
+  }
+
   const closeHandler = (e) => {
     e.target.parentNode.parentNode.parentNode.style.display = 'none'
   }
@@ -21,13 +42,17 @@ const Modal = () => {
           <span className='close' onClick={closeHandler}>
             &times;
           </span>
-          <h2>Add Your Name</h2>
+          <h2>Congratulations</h2>
         </div>
 
         <div className='modal-body'>
-          <form className='form'>
+          <p>
+            You have found all characters in just{' '}
+            {Math.floor((endTime - startTime) / 1000)} seconds
+          </p>
+          <form className='form' onSubmit={submitHandler}>
             <div className='fields'>
-              <div>
+              <div className='center-field'>
                 <label htmlFor='name'>Name</label>
                 <input
                   placeholder='John Doe'
@@ -36,6 +61,7 @@ const Modal = () => {
                   name='name'
                   required
                   autoFocus
+                  onChange={inputHandler}
                 />
               </div>
             </div>

@@ -90,3 +90,19 @@ form {
   margin-top: 10px;
   outline: none;
 }
+
+p {
+  text-align: center;
+}
+
+input {
+  border: 1px solid white;
+  border-radius: 999px;
+  outline: none;
+  padding: 5px;
+  width: 90%;
+}
+
+.center-field {
+  text-align: center;
+}

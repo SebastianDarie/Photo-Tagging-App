@@ -1,9 +1,11 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { positions, transitions, Provider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { db, storage } from './database/firebase'
 import useFirebaseDB from './hooks/useFirebaseDB'
 import Spinner from './components/layout/Spinner'
 import Home from './components/pages/Home'
+import Leaderboard from './components/pages/Leaderboard'
 
 import './App.css'
 
@@ -18,8 +20,17 @@ function App() {
 
   return (
     <Provider template={AlertTemplate} {...options}>
-      {!imgURL && <Spinner />}
-      {imgURL && <Home imgURL={imgURL} imgData={imgData} />}
+      <Router>
+        {!imgURL && <Spinner />}
+        <Switch>
+          <Route exact path='/'>
+            {imgURL && <Home db={db} imgURL={imgURL} imgData={imgData} />}
+          </Route>
+          <Route exact path='/leaderboard'>
+            <Leaderboard db={db} />
+          </Route>
+        </Switch>
+      </Router>
     </Provider>
   )
 }

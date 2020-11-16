@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useAlert } from 'react-alert'
 import clickCharacter from '../events/clickEvents'
 import Modal from '../layout/Modal'
+import Navbar from '../layout/Navbar'
 
-const Home = ({ imgURL, imgData }) => {
+const Home = ({ db, imgURL, imgData }) => {
+  const [startTime, setStartTime] = useState(null)
+  const [endTime, setEndTime] = useState(null)
   const [charInput, setCharInput] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const alert = useAlert()
@@ -18,25 +21,34 @@ const Home = ({ imgURL, imgData }) => {
     }
   }, [charInput])
 
+  useEffect(() => {
+    setStartTime(Date.now())
+  }, [])
+
   return (
-    <div className='image__container'>
-      <img
-        src={imgURL}
-        alt='waldo'
-        className='waldo__img'
-        onClick={(e) =>
-          clickCharacter(
-            e,
-            imgData,
-            charInput,
-            setCharInput,
-            alert,
-            setGameOver
-          )
-        }
-      />
-      {gameOver && <Modal />}
-    </div>
+    <>
+      <Navbar />
+
+      <div className='image__container'>
+        {gameOver && <Modal db={db} startTime={startTime} endTime={endTime} />}
+        <img
+          src={imgURL}
+          alt='waldo'
+          className='waldo__img'
+          onClick={(e) =>
+            clickCharacter(
+              e,
+              imgData,
+              charInput,
+              setCharInput,
+              alert,
+              setGameOver,
+              setEndTime
+            )
+          }
+        />
+      </div>
+    </>
   )
 }
 

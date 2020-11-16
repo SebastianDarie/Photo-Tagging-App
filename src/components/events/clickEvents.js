@@ -4,14 +4,15 @@ const clickCharacter = (
   charInput,
   setCharInput,
   alert,
-  setGameOver
+  setGameOver,
+  setEndTime
 ) => {
   if (charInput === true) {
     setCharInput(false)
   } else {
     const axisX = e.clientX
     const axisY = e.clientY
-    console.log(axisX, axisY)
+
     const targetBox = document.createElement('div')
     targetBox.className = 'target__box'
     targetBox.style.position = 'absolute'
@@ -47,7 +48,8 @@ const clickCharacter = (
             imgData,
             setCharInput,
             alert,
-            setGameOver
+            setGameOver,
+            setEndTime
           )
         )
       )
@@ -65,7 +67,8 @@ const makeSelection = (
   imgData,
   setCharInput,
   alert,
-  setGameOver
+  setGameOver,
+  setEndTime
 ) => {
   const character = imgData.find((el) => el.name === name)
 
@@ -85,9 +88,12 @@ const makeSelection = (
     character.found = true
     setCharInput(false)
 
-    imgData.every((doc) => doc.found === true)
-      ? setGameOver(true)
-      : alert.success('good job')
+    if (imgData.every((doc) => doc.found === true)) {
+      setGameOver(true)
+      setEndTime(Date.now())
+    } else {
+      alert.success('good job')
+    }
   } else {
     document.body.removeChild(targetBox)
     document.body.removeChild(dropdown)

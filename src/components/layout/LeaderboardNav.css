@@ -1,0 +1,40 @@
+.leaderboardNavbar {
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+}
+
+.leaderboardNavbar__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  width: 100%;
+}
+
+.leaderboardNavbar__title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.leaderboardNavbar__btn {
+  background-color: #add8e6;
+  border: 1px solid #e6bbad;
+  border-radius: 999px;
+  margin-right: 10px;
+  padding: 5px;
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  width: 97px;
+}
+
+.leaderboardNavbar__btn:hover {
+  background-color: #e6bbad;
+  border: 1px solid #add8e6;
+  color: #fff;
+  cursor: pointer;
+}

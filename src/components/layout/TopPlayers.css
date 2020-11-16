@@ -1,0 +1,35 @@
+.topPlayers__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topPlayers__list {
+  background-color: #add8e6;
+  border: 1px transparent;
+  border-radius: 5px;
+  margin-top: 50px;
+  padding: 0;
+  width: 800px;
+  min-height: 600px;
+  list-style-type: none;
+}
+
+.topPlayers__title {
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 8px auto;
+  padding: 5px;
+  text-align: center;
+  width: 40%;
+}
+
+.topPlayers__player {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  height: 40px;
+}

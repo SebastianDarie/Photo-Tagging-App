@@ -1,3 +1,9 @@
+Live app https://modest-elion-046996.netlify.app/
+
+Todo:
+1. Add levels in the future
+2. Rework code to be more react
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
